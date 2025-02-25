@@ -7,15 +7,17 @@ static void thinking(t_philo *philo)
 }
 
 
-static void eating(t_philo *philo)
+static bool eating(t_philo *philo)
 {
-    if (simulation_finished(philo->table))
-        error_exit("PROBLEME DE FAIM");
-
     pthread_mutex_lock(&philo->first_fork->fork);
-    write_status("has taken the first fork", philo);
+    write_status("has taken a fork", philo);
+    if (simulation_finished(philo->table) || philo->table->philo_nbr == 1)
+        {
+            usleep(philo->table->time_to_die << 1);
+            return(false);
+        }
     pthread_mutex_lock(&philo->second_fork->fork);
-    write_status("has taken the second fork", philo);
+    write_status("has taken a fork", philo);
 
     set_long(&philo->philo_mutex, &philo->last_meal_time, get_time_milli());
     philo->meal_counter++;
@@ -27,9 +29,10 @@ static void eating(t_philo *philo)
     if (philo->table->number_limit_meals > 0 
         && philo->meal_counter == philo->table->number_limit_meals)
         set_bool(&philo->philo_mutex, &philo->full, true);
-        
-    pthread_mutex_unlock(&philo->first_fork->fork);
+    
     pthread_mutex_unlock(&philo->second_fork->fork);
+    pthread_mutex_unlock(&philo->first_fork->fork);
+    return (true);
 }
 
 void    *dinner_simulation(void *data)
@@ -46,8 +49,8 @@ void    *dinner_simulation(void *data)
     {
         if (get_bool(&philo->philo_mutex, &philo->full))
             break;
-        eating(philo);
-     
+        if (!eating(philo))
+            break;
         write_status("is sleeping", philo);
         usleep(philo->table->time_to_sleep);
 
@@ -63,8 +66,8 @@ void    dinner_start(t_table *table)
     i = -1;
     if (table->number_limit_meals == 0)
         return;
-    else if (table->philo_nbr == 1)
-            ; // TODO
+    //else if (table->philo_nbr == 1)
+    //        pthread_create(&table->philos[0].thread_id, NULL, philo_alone, &table->philos[0]);
     else
     {
         while (++i < table->philo_nbr)
@@ -77,4 +80,5 @@ void    dinner_start(t_table *table)
     while (++i < table->philo_nbr)
         pthread_join(table->philos[i].thread_id, NULL);
     pthread_join(table->monitor, NULL);
+    error_exit("", table);
 }

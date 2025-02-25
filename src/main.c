@@ -12,5 +12,6 @@ int main(int ac, char **av)
         //clean_table(&table);/*TODO (philos full || one philo died)*/
     }
     else 
-        error_exit("Wrong number of inputs !\n");
+        printf("Wrong number of inputs !\n");
+    return(0);
 }

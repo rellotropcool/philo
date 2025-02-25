@@ -6,7 +6,7 @@ void    *safe_malloc(size_t bytes)
 
     output = malloc(bytes);
     if (!output)
-        error_exit("Malloc error !\n");
+        return(printf("Malloc error !\n"), NULL);
     return (output);
 }
 
@@ -55,7 +55,14 @@ void    data_init(t_table *table)
     table->threads_running_nbr = false;
     pthread_mutex_init(&table->table_mutex, NULL);
     table->forks = safe_malloc(sizeof(t_fork) * table->philo_nbr);
+    if (!table->forks)
+        exit(1);
     table->philos = safe_malloc(sizeof(t_philo) * table->philo_nbr);
+    if (!table->philos)
+    {
+        free(table->forks);
+        exit(1);
+    }
     while (++i < table->philo_nbr)
     {
         pthread_mutex_init(&table->forks[i].fork, NULL);

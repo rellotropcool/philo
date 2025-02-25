@@ -77,7 +77,7 @@ void    dinner_start(t_table *table);
 UTILS
 */
 
-void    error_exit(const char *error);
+void    error_exit(const char *error, t_table *table);
 
 bool    get_bool(t_mtx *mutex, bool *value);
 long    get_long(t_mtx *mutex, long *value);
@@ -92,7 +92,6 @@ void    increase_long(t_mtx *mutex, long *value);
 void    *check_death(void *data);
 
 long    get_time_milli(void);
-long    get_time_micro(void);
 
 void    write_status(char *str, t_philo *philo);
 
@@ -102,6 +101,5 @@ PARSING
 */
 
 void    parse_input(t_table *table, char **av);
-
 
 #endif
