@@ -40,6 +40,7 @@ void    philo_init(t_table *table)
         philo->full = false;
         philo->meal_counter = 0;
         philo->table = table;
+        pthread_mutex_init(&philo->philo_mutex, NULL);
         assign_forks(philo, table->forks, i);
     }
 }
@@ -50,6 +51,9 @@ void    data_init(t_table *table)
 
     i = -1;
     table->end_simulation = false;
+    table->threads_ready = false;
+    table->threads_running_nbr = false;
+    pthread_mutex_init(&table->table_mutex, NULL);
     table->forks = safe_malloc(sizeof(t_fork) * table->philo_nbr);
     table->philos = safe_malloc(sizeof(t_philo) * table->philo_nbr);
     while (++i < table->philo_nbr)
@@ -58,4 +62,5 @@ void    data_init(t_table *table)
         table->forks[i].fork_id = i;
     }
     philo_init(table);
+    pthread_mutex_init(&table->write_mutex, NULL);
 }

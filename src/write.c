@@ -6,7 +6,7 @@ void    write_status(char *str, t_philo *philo)
 
     if (get_bool(&philo->philo_mutex, &philo->full))
         return;
-    elapsed = get_time_milli();
+    elapsed = get_time_milli() - philo->table->start_simulation;
     pthread_mutex_lock(&philo->table->write_mutex);
     {
         if (!simulation_finished(philo->table))

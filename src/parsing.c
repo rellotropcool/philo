@@ -15,6 +15,7 @@ char    *valid_input(char *str)
     int     len;
     char    *number;
 
+    len = 0;
     while(is_space(*str))
         str++;
     if(*str == '+')

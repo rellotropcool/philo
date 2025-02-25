@@ -57,6 +57,8 @@ struct s_table
 	long					start_simulation;
 	bool					end_simulation;
 	bool					threads_ready;
+	long					threads_running_nbr;
+	pthread_t				monitor;
 	t_mtx					table_mutex;
 	t_mtx					write_mutex;
 	t_fork					*forks;
@@ -84,6 +86,10 @@ void    set_long(t_mtx *mutex, long *dest, long value);
 bool    simulation_finished(t_table *table);
 
 void    wait_all_threads(t_table *table);
+bool    all_threads_running(t_mtx *mutex, long *threads, long philo_nbr);
+void    increase_long(t_mtx *mutex, long *value);
+
+void    *check_death(void *data);
 
 long    get_time_milli(void);
 long    get_time_micro(void);
