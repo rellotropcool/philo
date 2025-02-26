@@ -24,7 +24,7 @@ static bool	eating(t_philo *philo)
 	write_status("has taken a fork", philo);
 	if (simulation_finished(philo->table) || philo->table->philo_nbr == 1)
 	{
-		usleep(philo->table->time_to_die + 400);
+		ft_usleep(philo->table->time_to_die + 100);
 		error_exit("", philo->table);
 	}
 	pthread_mutex_lock(&philo->second_fork->fork);

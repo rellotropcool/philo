@@ -35,3 +35,13 @@ long	get_time_milli(void)
 		return (0);
 	return (tv.tv_sec * 1e3 + tv.tv_usec / 1e3);
 }
+
+void	ft_usleep(long int time_in_ms)
+{
+	long int	start_time;
+
+	start_time = 0;
+	start_time = get_time_milli();
+	while ((get_time_milli() - start_time) < time_in_ms / 1e3)
+    	usleep(time_in_ms / 10);
+}
