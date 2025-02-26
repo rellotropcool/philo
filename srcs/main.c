@@ -27,5 +27,3 @@ int	main(int ac, char **av)
 		printf("Wrong number of inputs !\n");
 	return (0);
 }
-
-// 100 800 200 200 : 11436
