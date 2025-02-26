@@ -38,10 +38,10 @@ long	get_time_milli(void)
 
 void	ft_usleep(long int time_in_ms)
 {
-	long int	start_time;
+	long	start_time;
 
 	start_time = 0;
 	start_time = get_time_milli();
 	while ((get_time_milli() - start_time) < time_in_ms / 1e3)
-    	usleep(time_in_ms / 10);
+		usleep(time_in_ms / 10);
 }

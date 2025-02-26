@@ -103,7 +103,7 @@ void					increase_long(t_mtx *mutex, long *value);
 void					*check_death(void *data);
 
 long					get_time_milli(void);
-void	ft_usleep(long int time_in_ms);
+void					ft_usleep(long int time_in_ms);
 
 void					write_status(char *str, t_philo *philo);
 
