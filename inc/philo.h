@@ -80,7 +80,7 @@ struct					s_table
 PROTOTYPES ---------------------------------------------------------
 */
 
-void					data_init(t_table *table);
+bool					data_init(t_table *table);
 void					dinner_start(t_table *table);
 
 /*
@@ -111,7 +111,7 @@ void					write_status(char *str, t_philo *philo);
 PARSING
 */
 
-void					parse_input(t_table *table, char **av);
+bool					parse_input(t_table *table, char **av);
 
 #endif
 
@@ -122,5 +122,5 @@ void					parse_input(t_table *table, char **av);
 ./philo 5 60 60 60
 ./philo 5 60 200 200
 ./philo 5 400 200 200
-./philo 
+./philo
 */

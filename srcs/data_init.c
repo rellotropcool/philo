@@ -57,7 +57,7 @@ void	philo_init(t_table *table)
 	}
 }
 
-void	data_init(t_table *table)
+bool	data_init(t_table *table)
 {
 	int	i;
 
@@ -68,12 +68,12 @@ void	data_init(t_table *table)
 	pthread_mutex_init(&table->table_mutex, NULL);
 	table->forks = safe_malloc(sizeof(t_fork) * table->philo_nbr);
 	if (!table->forks)
-		exit(1);
+		return (false);
 	table->philos = safe_malloc(sizeof(t_philo) * table->philo_nbr);
 	if (!table->philos)
 	{
 		free(table->forks);
-		exit(1);
+		return (false);
 	}
 	while (++i < table->philo_nbr)
 	{
@@ -82,4 +82,5 @@ void	data_init(t_table *table)
 	}
 	philo_init(table);
 	pthread_mutex_init(&table->write_mutex, NULL);
+	return (true);
 }

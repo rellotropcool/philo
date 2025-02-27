@@ -18,12 +18,17 @@ int	main(int ac, char **av)
 
 	if (ac == 5 || ac == 6)
 	{
-		parse_input(&table, av);
-		data_init(&table);
+		if (!parse_input(&table, av))
+			return (1);
+		if (!data_init(&table))
+			return (1);
 		dinner_start(&table);
 		error_exit("", &table);
 	}
 	else
+	{
 		printf("Wrong number of inputs !\n");
+		return (1);
+	}
 	return (0);
 }

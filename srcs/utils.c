@@ -24,7 +24,7 @@ void	error_exit(const char *error, t_table *table)
 	free(table->forks);
 	free(table->philos);
 	printf("%s", error);
-	exit(0);
+	return ;
 }
 
 long	get_time_milli(void)
