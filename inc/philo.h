@@ -114,3 +114,13 @@ PARSING
 void					parse_input(t_table *table, char **av);
 
 #endif
+
+/*
+./philo
+./philo 0 60 60 60
+./philo 1 60 60 60
+./philo 5 60 60 60
+./philo 5 60 200 200
+./philo 5 400 200 200
+./philo 
+*/

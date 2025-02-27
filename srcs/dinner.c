@@ -25,7 +25,7 @@ static bool	eating(t_philo *philo)
 	if (simulation_finished(philo->table) || philo->table->philo_nbr == 1)
 	{
 		ft_usleep(philo->table->time_to_die + 100);
-		error_exit("", philo->table);
+		return (false);
 	}
 	pthread_mutex_lock(&philo->second_fork->fork);
 	write_status("has taken a fork", philo);
@@ -54,9 +54,10 @@ void	*dinner_simulation(void *data)
 		usleep(1500);
 	while (!simulation_finished(philo->table))
 	{
-		if (get_bool(&philo->philo_mutex, &philo->full))
+		if (simulation_finished(philo->table) || get_bool(&philo->philo_mutex,
+				&philo->full))
 			break ;
-		if (!eating(philo))
+		if (simulation_finished(philo->table) || !eating(philo))
 			break ;
 		write_status("is sleeping", philo);
 		usleep(philo->table->time_to_sleep);
@@ -86,5 +87,4 @@ void	dinner_start(t_table *table)
 		pthread_join(table->philos[i].thread_id, NULL);
 	set_bool(&table->table_mutex, &table->end_simulation, true);
 	pthread_join(table->monitor, NULL);
-	error_exit("", table);
 }

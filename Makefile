@@ -43,7 +43,7 @@ OBJ := $(patsubst %.c,$(OBJS_DIR)/%.o,$(SRC))
 
 # Utils
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=thread
 RM = rm -rf
 INCLUDES_FLAGS := $(addprefix -I , $(INCLUDES))
 
